@@ -1,40 +1,162 @@
-# Secrets
+###############################################################################
+# Operating system and IDE
+###############################################################################
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.idea/
+.vscode/
+*.iml
+*.code-workspace
+.project
+.classpath
+.settings/
+
+*.swp
+*.swo
+*~
+
+###############################################################################
+# Java, Maven and Gradle
+###############################################################################
+
+target/
+**/target/
+
+*.class
+*.jar
+*.war
+*.ear
+
+.gradle/
+build/
+**/build/
+
+###############################################################################
+# Node.js, React and Vite
+###############################################################################
+
+node_modules/
+**/node_modules/
+
+dist/
+**/dist/
+
+.vite/
+coverage/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+###############################################################################
+# Python
+###############################################################################
+
+__pycache__/
+*.py[cod]
+
+.venv/
+venv/
+.pytest_cache/
+
+###############################################################################
+# Real environment files and secrets
+###############################################################################
+
 .env
-.env.*
-!.env.example
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+*.secret
+*.secrets
+
+secrets/
+credentials/
+
 *.pem
 *.key
 *.p12
+*.pfx
 *.jks
-secret.yaml
-secrets.yaml
+*.keystore
 
-# IDE
-.vscode/
-.idea/
+###############################################################################
+# Safe environment templates
+###############################################################################
 
-# OS files
-.DS_Store
-Thumbs.db
+!.env.example
+!.env.*.example
 
-# Logs
-*.log
+###############################################################################
+# AWS, Kubernetes and Terraform local files
+###############################################################################
 
-# Build output
-bin/
-build/
-dist/
-target/
-coverage/
-node_modules/
-__pycache__/
-*.pyc
+.aws/
+.kube/
 
-# Terraform
 .terraform/
+**/.terraform/
+
 *.tfstate
 *.tfstate.*
-crash.log
 
-# Helm packages
+terraform.tfvars
+*.auto.tfvars
+*.tfvars.json
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+###############################################################################
+# Logs, runtime data and reports
+###############################################################################
+
+*.log
+logs/
+
+data/
+tmp/
+temp/
+
+boutique-startup-logs/
+boutique-dependency-report/
+aws-readiness-report/
+polyrepo-sync-report-*/
+
+###############################################################################
+# Repair, migration and temporary backups
+###############################################################################
+
+.finalize-backups/
+.release-backups/
+.upgrade-backups/
+
+.flyway-repair-backups/
+.flyway-backups/
+
+.aws-readiness-backup-*/
+.frontend-auth-backup-*/
+
+*.before-*
+*.broken.backup
+*.bak
+
+###############################################################################
+# Archives
+###############################################################################
+
+*.zip
+*.tar
+*.tar.gz
 *.tgz
+*.7z
+*.rar
