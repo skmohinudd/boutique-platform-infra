@@ -160,3 +160,13 @@ polyrepo-sync-report-*/
 *.tgz
 *.7z
 *.rar
+.env.*
+load-test-results/
+smoke-test-reports/
+github-sync-reports/
+.production-hardening-backups/
+.final-performance-v3-backups/
+.smoke-test-fix-backups/
+.plain-lambda-backups/
+.final-consolidated-backups/
+.lambda-image-removal-backups/
