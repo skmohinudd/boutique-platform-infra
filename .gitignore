@@ -170,3 +170,11 @@ github-sync-reports/
 .plain-lambda-backups/
 .final-consolidated-backups/
 .lambda-image-removal-backups/
+crash.log
+crash.*.log
+*.tfvars
+*.tfplan
+.terraform.lock.hcl.backup
+helm/**/*.tgz
+**/.env
+!*.tfvars.example
