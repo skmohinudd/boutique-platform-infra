@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karpenter-test
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: karpenter-test
+
+  template:
+    metadata:
+      labels:
+        app: karpenter-test
+
+    spec:
+
+      nodeSelector:
+        workload: karpenter
+
+      containers:
+        - name: pause
+          image: public.ecr.aws/eks-distro/kubernetes/pause:3.10
+
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"

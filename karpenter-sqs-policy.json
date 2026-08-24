@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Id": "EC2InterruptionPolicy",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "events.amazonaws.com",
+          "sqs.amazonaws.com"
+        ]
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:us-east-1:663130434910:boutique-dev-eks"
+    },
+    {
+      "Sid": "DenyHTTP",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "sqs:*",
+      "Resource": "arn:aws:sqs:us-east-1:663130434910:boutique-dev-eks",
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
