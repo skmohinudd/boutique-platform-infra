@@ -1,0 +1,7 @@
+cluster	namespace	serviceAccount	role
+boutique-dev-eks	boutique	productcatalogservice-sa	BoutiqueMicroservicesSecretsAccess
+boutique-dev-eks	boutique	inventoryservice-sa	BoutiqueMicroservicesSecretsAccess
+boutique-dev-eks	boutique	userservice-sa	BoutiqueMicroservicesSecretsAccess
+boutique-dev-eks	boutique	orderservice-sa	BoutiqueMicroservicesSecretsAccess
+boutique-dev-eks	boutique	paymentservice-sa	BoutiqueMicroservicesSecretsAccess
+boutique-dev-eks	boutique	shippingservice-sa	BoutiqueMicroservicesSecretsAccess

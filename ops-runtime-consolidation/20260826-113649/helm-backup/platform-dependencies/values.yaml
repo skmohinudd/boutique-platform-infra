@@ -1,0 +1,10 @@
+redis:
+  image: redis:7.4-alpine
+kafka:
+  image: apache/kafka:4.3.1
+rabbitmq:
+  image: rabbitmq:4-management-alpine
+  username: "boutique"
+  password: "boutique_password"
+mailpit:
+  image: mailhog/mailhog:v1.0.1

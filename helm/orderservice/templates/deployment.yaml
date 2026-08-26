@@ -52,9 +52,23 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Values.configMapName }}
-            - secretRef:
-                name: {{ .Values.database.secretName }}
           env:
+            # Service-specific PostgreSQL JDBC URL from Helm values.
+            - name: DB_URL
+              value: {{ .Values.database.url | quote }}
+            # Current RDS credentials synchronized from AWS Secrets Manager.
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.kubernetesSecretName }}
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.kubernetesSecretName }}
+                  key: DB_PASSWORD
+            # Service-specific JDBC URL; not a secret.
+            # Rotating RDS credentials synchronized from AWS Secrets Manager.
             - name: SPRING_RABBITMQ_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -65,6 +79,11 @@ spec:
                 secretKeyRef:
                   name: rabbitmq-credentials
                   key: SPRING_RABBITMQ_PASSWORD
+          # Mount AWS Secrets Manager values through the existing CSI driver.
+          volumeMounts:
+            - name: aws-secrets-store
+              mountPath: {{ .Values.awsSecrets.mountPath }}
+              readOnly: true
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
@@ -104,3 +123,13 @@ spec:
                   - -c
                   - "sleep {{ .Values.lifecycle.preStopSleepSeconds }}"
 # RabbitMQ credentials are provided by the shared platform Secret through a pod-level patch below.
+
+      # Namespace-wide SecretProviderClass is reused by all DB workloads.
+      volumes:
+        - name: aws-secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ .Values.awsSecrets.secretProviderClassName }}
+

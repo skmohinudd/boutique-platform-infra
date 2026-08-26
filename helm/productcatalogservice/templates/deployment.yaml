@@ -74,18 +74,22 @@ spec:
 
           # Load database credentials synchronized from AWS Secrets Manager.
           env:
+            # Service-specific PostgreSQL JDBC URL from Helm values.
+            - name: DB_URL
+              value: {{ .Values.database.url | quote }}
+            # Current RDS credentials synchronized from AWS Secrets Manager.
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.database.kubernetesSecretName }}
                   key: DB_USERNAME
-
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.database.kubernetesSecretName }}
                   key: DB_PASSWORD
-
+            # Service-specific JDBC URL; not a secret.
+            # Rotating RDS credentials synchronized from AWS Secrets Manager.
           # Mount AWS Secrets Manager values through the Secrets Store CSI Driver.
           volumeMounts:
             - name: aws-secrets-store
@@ -148,3 +152,4 @@ spec:
             readOnly: true
             volumeAttributes:
               secretProviderClass: {{ .Values.awsSecrets.secretProviderClassName }}
+

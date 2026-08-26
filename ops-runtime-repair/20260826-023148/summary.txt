@@ -1,0 +1,46 @@
+Boutique final runtime repair
+=============================
+
+Timestamp                  : 20260826-023148
+Project root               : /c/boutique-project/Projects
+Helm root                  : /c/boutique-project/Projects/boutique-platform-infra/helm
+EKS cluster                : boutique-dev-eks
+Namespace                  : boutique
+RDS instance               : boutique-dev-postgres
+RDS endpoint               : boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com
+RDS managed secret         : arn:aws:secretsmanager:us-east-1:663130434910:secret:rds!db-7e157237-f45d-49ca-b15e-69564c0a712c-nDs6Xi
+Pod IAM role               : arn:aws:iam::663130434910:role/BoutiqueMicroservicesSecretsAccess
+SecretProviderClass        : boutique-rds-secrets
+Synced Kubernetes Secret   : boutique-rds-credentials
+
+Pod Identity tests passed  : 6
+Pod Identity tests failed  : 0
+Successful Helm rollouts   : 4
+Skipped optional/missing   : 1
+Fixed/configured items     : 6
+Warnings                   : 1
+Errors                     : 7
+
+Database map:
+productcatalogservice|product_catalog_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/product_catalog_db|productcatalogservice-sa
+inventoryservice|inventory_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/inventory_db|inventoryservice-sa
+userservice|user_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/user_db|userservice-sa
+cartservice|NO_DATABASE|-|cartservice-sa
+orderservice|order_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/order_db|orderservice-sa
+paymentservice|payment_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/payment_db|paymentservice-sa
+checkoutservice|NO_DATABASE|-|checkoutservice-sa
+shippingservice|shipping_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/shipping_db|shippingservice-sa
+notificationservice|NO_DATABASE|-|notificationservice-sa
+recommendationservice|NO_DATABASE|-|recommendationservice-sa
+productcatalogservice|product_catalog_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/product_catalog_db|productcatalogservice-sa
+inventoryservice|inventory_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/inventory_db|inventoryservice-sa
+userservice|user_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/user_db|userservice-sa
+orderservice|order_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/order_db|orderservice-sa
+paymentservice|payment_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/payment_db|paymentservice-sa
+shippingservice|shipping_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/shipping_db|shippingservice-sa
+
+All logs:
+/c/boutique-project/Projects/boutique-platform-infra/ops-runtime-repair/20260826-023148
+
+Helm backup:
+/c/boutique-project/Projects/boutique-platform-infra/ops-runtime-repair/20260826-023148/helm-backup

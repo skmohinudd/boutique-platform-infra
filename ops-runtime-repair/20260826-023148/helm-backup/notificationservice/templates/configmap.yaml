@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMapName }}
+data:
+  KAFKA_BOOTSTRAP_SERVERS: "{{ .Values.config.kafkaBootstrapServers }}"
+  KAFKA_CONSUMER_GROUP: "{{ .Values.config.kafkaConsumerGroup }}"
+  KAFKA_ORDER_EVENTS_TOPIC: "{{ .Values.config.kafkaOrderEventsTopic }}"
+  KAFKA_PAYMENT_EVENTS_TOPIC: "{{ .Values.config.kafkaPaymentEventsTopic }}"
+  KAFKA_SHIPPING_EVENTS_TOPIC: "{{ .Values.config.kafkaShippingEventsTopic }}"
+  REDIS_HOST: "{{ .Values.config.redisHost }}"
+  REDIS_PORT: "{{ .Values.config.redisPort }}"
+  SPRING_RABBITMQ_HOST: "{{ .Values.config.rabbitmqHost }}"
+  SPRING_RABBITMQ_PORT: "{{ .Values.config.rabbitmqPort }}"
+  SPRING_MAIL_HOST: "{{ .Values.config.mailHost }}"
+  SPRING_MAIL_PORT: "{{ .Values.config.mailPort }}"
+  NOTIFICATION_DEDUPE_TTL: "{{ .Values.config.dedupeTtl }}"
+  NOTIFICATION_EMAIL_DEFAULT_RECIPIENT: "{{ .Values.config.emailDefaultRecipient }}"
+  NOTIFICATION_EMAIL_FROM: "{{ .Values.config.emailFrom }}"
+
+  USER_SERVICE_URL: "{{ .Values.config.userServiceUrl }}"

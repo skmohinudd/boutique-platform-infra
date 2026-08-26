@@ -1,0 +1,62 @@
+Boutique final consolidation summary
+====================================
+
+Timestamp                : 20260826-113649
+Project root             : /c/boutique-project/Projects
+Platform source of truth : /c/boutique-project/Projects/boutique-platform-infra
+Helm root                : /c/boutique-project/Projects/boutique-platform-infra/helm
+AWS identity code        : /c/boutique-project/Projects/boutique-platform-infra/aws/pod-identity
+
+Cluster                  : boutique-dev-eks
+Namespace                : boutique
+RDS instance             : boutique-dev-postgres
+RDS endpoint             : boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com
+RDS managed secret       : arn:aws:secretsmanager:us-east-1:663130434910:secret:rds!db-7e157237-f45d-49ca-b15e-69564c0a712c-nDs6Xi
+IAM role                 : arn:aws:iam::663130434910:role/BoutiqueMicroservicesSecretsAccess
+SecretProviderClass      : boutique-rds-secrets
+Synced Kubernetes Secret : boutique-rds-credentials
+
+Pod Identity passed      : 6
+Pod Identity failed      : 0
+Helm rollouts succeeded  : 8
+Final healthy services   : 9 / 10
+Images built locally     : 0
+Known repairs/configured : 11
+Warnings                 : 0
+Errors observed          : 7
+
+Database map:
+productcatalogservice|product_catalog_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/product_catalog_db|productcatalogservice-sa
+inventoryservice|inventory_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/inventory_db|inventoryservice-sa
+userservice|user_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/user_db|userservice-sa
+cartservice|NO_DATABASE|-|cartservice-sa
+orderservice|order_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/order_db|orderservice-sa
+paymentservice|payment_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/payment_db|paymentservice-sa
+checkoutservice|NO_DATABASE|-|checkoutservice-sa
+shippingservice|shipping_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/shipping_db|shippingservice-sa
+notificationservice|NO_DATABASE|-|notificationservice-sa
+recommendationservice|NO_DATABASE|-|recommendationservice-sa
+productcatalogservice|product_catalog_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/product_catalog_db|productcatalogservice-sa
+inventoryservice|inventory_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/inventory_db|inventoryservice-sa
+userservice|user_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/user_db|userservice-sa
+orderservice|order_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/order_db|orderservice-sa
+paymentservice|payment_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/payment_db|paymentservice-sa
+shippingservice|shipping_db|jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/shipping_db|shippingservice-sa
+
+Health map:
+productcatalogservice|HEALTHY
+inventoryservice|HEALTHY
+userservice|HEALTHY
+cartservice|HEALTHY
+orderservice|HEALTHY
+paymentservice|HEALTHY
+checkoutservice|HEALTHY
+shippingservice|HEALTHY
+notificationservice|HEALTHY
+recommendationservice|NOT_CONVERGED
+
+Logs:
+/c/boutique-project/Projects/boutique-platform-infra/ops-runtime-consolidation/20260826-113649
+
+Helm backup:
+/c/boutique-project/Projects/boutique-platform-infra/ops-runtime-consolidation/20260826-113649/helm-backup

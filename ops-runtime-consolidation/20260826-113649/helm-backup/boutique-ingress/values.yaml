@@ -1,0 +1,46 @@
+ingress:
+  name: boutique-api-ingress
+  className: alb
+  host: api.needystuff.in
+  scheme: internet-facing
+  targetType: ip
+  certificateArn: "arn:aws:acm:us-east-1:663130434910:certificate/1864680e-c5f1-4b4a-a8dd-166ae50912e1"
+  subnets: "subnet-047166378e9e6fa02,subnet-03931002bbf03b48f,subnet-051c64f73c1164620"
+  healthCheckPath: /actuator/health
+  healthCheckPort: traffic-port
+  successCodes: "200"
+  sslRedirect: "443"
+
+routes:
+  product:
+    path: /api/v1/products
+    serviceName: productcatalogservice
+    servicePort: 8080
+  inventory:
+    path: /api/v1/inventory
+    serviceName: inventoryservice
+    servicePort: 8081
+  user:
+    path: /api/v1/users
+    serviceName: userservice
+    servicePort: 8082
+  cart:
+    path: /api/v1/carts
+    serviceName: cartservice
+    servicePort: 8083
+  order:
+    path: /api/v1/orders
+    serviceName: orderservice
+    servicePort: 8084
+  payment:
+    path: /api/v1/payments
+    serviceName: paymentservice
+    servicePort: 8085
+  checkout:
+    path: /api/v1/checkouts
+    serviceName: checkoutservice
+    servicePort: 8086
+  shipping:
+    path: /api/v1/shipments
+    serviceName: shippingservice
+    servicePort: 8087
