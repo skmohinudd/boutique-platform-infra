@@ -1,3 +1,9 @@
+# BOUTIQUE-DOCS-BEGIN
+# Deployment: defines Pods, image, env/config, probes, resources and security.
+# Helm values feed this template; Kubernetes keeps the requested Pods running.
+# Do not manually kubectl apply a second Deployment with the same name.
+# BOUTIQUE-DOCS-END
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

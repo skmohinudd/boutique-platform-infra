@@ -1,3 +1,9 @@
+# BOUTIQUE-DOCS-BEGIN
+# ConfigMap: converts Helm configuration values into runtime environment variables.
+# Use it for non-secret settings such as service URLs, ports, topics and feature flags.
+# Passwords/tokens must come from Kubernetes Secret/Secrets Store, not this file.
+# BOUTIQUE-DOCS-END
+
 apiVersion: v1
 kind: ConfigMap
 metadata:

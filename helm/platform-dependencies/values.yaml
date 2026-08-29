@@ -1,3 +1,14 @@
+# BOUTIQUE-VALUES-SECTIONS-BEGIN
+# Section comments below explain the responsibility of major values keys.
+# BOUTIQUE-VALUES-SECTIONS-END
+# BOUTIQUE-DOCS-BEGIN
+# Central values for this Helm chart.
+# Templates read these values using {{ .Values.<key> }}.
+# Change Kubernetes desired configuration here rather than using kubectl edit.
+# CI/CD intentionally overrides image.repository and image.tag at deployment time
+# so Nexus JAR, ECR image, Helm release and EKS run the same immutable version.
+# BOUTIQUE-DOCS-END
+
 redis:
   image: redis:7.4-alpine
 kafka:

@@ -1,12 +1,28 @@
+# BOUTIQUE-VALUES-SECTIONS-BEGIN
+# Section comments below explain the responsibility of major values keys.
+# BOUTIQUE-VALUES-SECTIONS-END
+# BOUTIQUE-DOCS-BEGIN
+# Central values for this Helm chart.
+# Templates read these values using {{ .Values.<key> }}.
+# Change Kubernetes desired configuration here rather than using kubectl edit.
+# CI/CD intentionally overrides image.repository and image.tag at deployment time
+# so Nexus JAR, ECR image, Helm release and EKS run the same immutable version.
+# BOUTIQUE-DOCS-END
+
+# name: Kubernetes application/resource identity used by templates.
 name: notificationservice
+# configMapName: name of the non-secret runtime configuration ConfigMap.
 configMapName: notificationservice-config
+# image: ECR repository/tag/pull policy. CI/CD overrides repository/tag for releases.
 image:
   repository: 663130434910.dkr.ecr.us-east-1.amazonaws.com/boutique-notificationservice
   tag: "1.0.4-202608231430"
   pullPolicy: IfNotPresent
+# serviceAccount: Pod Kubernetes identity and token-mount behavior.
 serviceAccount:
   name: notificationservice-sa
   automountServiceAccountToken: false
+# config: non-secret runtime env values such as DNS URLs, topics and feature flags.
 config:
   kafkaBootstrapServers: "kafka:9092"
   kafkaConsumerGroup: "notification-service"
@@ -23,9 +39,11 @@ config:
   emailDefaultRecipient: "demo.customer@boutique.local"
   emailFrom: "no-reply@boutique.local"
   userServiceUrl: "http://userservice:8082"
+# revisionHistoryLimit: number of old ReplicaSets Kubernetes retains for rollback.
 revisionHistoryLimit: 5
 progressDeadlineSeconds: 600
 terminationGracePeriodSeconds: 30
+# resources: CPU/memory requests for scheduling and limits for containment.
 resources:
   requests:
     cpu: 100m
@@ -33,24 +51,29 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+# podSecurityContext: pod-level non-root UID/GID/filesystem identity.
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 10001
   runAsGroup: 10001
   fsGroup: 10001
+# containerSecurityContext: container privilege/capability/filesystem restrictions.
 containerSecurityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: false
   runAsNonRoot: true
   runAsUser: 10001
+# topologySpread: distributes replicas across nodes/failure domains.
 topologySpread:
   maxSkew: 1
   topologyKey: kubernetes.io/hostname
   whenUnsatisfiable: ScheduleAnyway
+# autoscaling: HPA minimum/maximum replicas and utilization target.
 autoscaling:
   minReplicas: 1
   maxReplicas: 3
   cpuAverageUtilization: 70
   scaleDownStabilizationSeconds: 300
+# pdb: minimum availability allowed during voluntary disruptions.
 pdb:
   minAvailable: 1

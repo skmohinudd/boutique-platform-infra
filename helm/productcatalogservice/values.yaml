@@ -1,27 +1,47 @@
+# BOUTIQUE-VALUES-SECTIONS-BEGIN
+# Section comments below explain the responsibility of major values keys.
+# BOUTIQUE-VALUES-SECTIONS-END
+# BOUTIQUE-DOCS-BEGIN
+# Central values for this Helm chart.
+# Templates read these values using {{ .Values.<key> }}.
+# Change Kubernetes desired configuration here rather than using kubectl edit.
+# CI/CD intentionally overrides image.repository and image.tag at deployment time
+# so Nexus JAR, ECR image, Helm release and EKS run the same immutable version.
+# BOUTIQUE-DOCS-END
+
+# name: Kubernetes application/resource identity used by templates.
 name: productcatalogservice
+# configMapName: name of the non-secret runtime configuration ConfigMap.
 configMapName: productcatalog-config
+# containerPort: TCP port on which this application process listens.
 containerPort: 8080
+# image: ECR repository/tag/pull policy. CI/CD overrides repository/tag for releases.
 image:
   repository: 663130434910.dkr.ecr.us-east-1.amazonaws.com/boutique-productcatalogservice
   tag: "1.0.2"
   pullPolicy: IfNotPresent
+# service: stable ClusterIP port/targetPort used for in-cluster communication.
 service:
   type: ClusterIP
   port: 8080
   targetPort: 8080
+# serviceAccount: Pod Kubernetes identity and token-mount behavior.
 serviceAccount:
   name: productcatalogservice-sa
   automountServiceAccountToken: false
+# database: JDBC endpoint and Kubernetes Secret name for DB credentials.
 database:
   url: "jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/product_catalog_db"
   kubernetesSecretName: boutique-rds-credentials
 
+# awsSecrets: Secrets Store CSI / AWS Secrets Manager integration settings.
 awsSecrets:
   enabled: true
   region: us-east-1
   secretProviderClassName: boutique-rds-secrets
   secretArn: "arn:aws:secretsmanager:us-east-1:663130434910:secret:rds!db-7e157237-f45d-49ca-b15e-69564c0a712c-nDs6Xi"
   mountPath: /mnt/secrets-store
+# config: non-secret runtime env values such as DNS URLs, topics and feature flags.
 config:
   serverPort: "8080"
   corsAllowedOrigins: "https://needystuff.in,http://localhost:4173,http://localhost:5173"
@@ -37,6 +57,7 @@ config:
   tomcatMaxConnections: "2000"
   openapiEnabled: "true"
   swaggerEnabled: "true"
+# revisionHistoryLimit: number of old ReplicaSets Kubernetes retains for rollback.
 revisionHistoryLimit: 5
 progressDeadlineSeconds: 600
 terminationGracePeriodSeconds: 30
@@ -44,6 +65,7 @@ strategy:
   type: RollingUpdate
   maxUnavailable: 0
   maxSurge: 1
+# resources: CPU/memory requests for scheduling and limits for containment.
 resources:
   requests:
     cpu: 100m
@@ -70,24 +92,29 @@ probes:
     failureThreshold: 3
 lifecycle:
   preStopSleepSeconds: 10
+# podSecurityContext: pod-level non-root UID/GID/filesystem identity.
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 10001
   runAsGroup: 10001
   fsGroup: 10001
+# containerSecurityContext: container privilege/capability/filesystem restrictions.
 containerSecurityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: false
   runAsNonRoot: true
   runAsUser: 10001
+# topologySpread: distributes replicas across nodes/failure domains.
 topologySpread:
   maxSkew: 1
   topologyKey: kubernetes.io/hostname
   whenUnsatisfiable: ScheduleAnyway
+# autoscaling: HPA minimum/maximum replicas and utilization target.
 autoscaling:
   minReplicas: 2
   maxReplicas: 5
   cpuAverageUtilization: 70
   scaleDownStabilizationSeconds: 300
+# pdb: minimum availability allowed during voluntary disruptions.
 pdb:
   minAvailable: 1

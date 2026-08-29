@@ -1,3 +1,11 @@
+# BOUTIQUE-DOCS-BEGIN
+# Helm Chart metadata.
+# - apiVersion: Helm chart specification version.
+# - name: logical chart/application name.
+# - version: version of this Helm chart itself.
+# - appVersion: informational application version; CI/CD image.tag is authoritative.
+# BOUTIQUE-DOCS-END
+
 apiVersion: v2
 name: shippingservice
 description: Boutique DEV Helm chart for shippingservice

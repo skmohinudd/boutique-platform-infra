@@ -1,20 +1,39 @@
+# BOUTIQUE-VALUES-SECTIONS-BEGIN
+# Section comments below explain the responsibility of major values keys.
+# BOUTIQUE-VALUES-SECTIONS-END
+# BOUTIQUE-DOCS-BEGIN
+# Central values for this Helm chart.
+# Templates read these values using {{ .Values.<key> }}.
+# Change Kubernetes desired configuration here rather than using kubectl edit.
+# CI/CD intentionally overrides image.repository and image.tag at deployment time
+# so Nexus JAR, ECR image, Helm release and EKS run the same immutable version.
+# BOUTIQUE-DOCS-END
+
+# name: Kubernetes application/resource identity used by templates.
 name: shippingservice
+# configMapName: name of the non-secret runtime configuration ConfigMap.
 configMapName: shippingservice-config
+# containerPort: TCP port on which this application process listens.
 containerPort: 8087
+# image: ECR repository/tag/pull policy. CI/CD overrides repository/tag for releases.
 image:
   repository: 663130434910.dkr.ecr.us-east-1.amazonaws.com/boutique-shippingservice-java
   tag: "1.0.2"
   pullPolicy: IfNotPresent
+# service: stable ClusterIP port/targetPort used for in-cluster communication.
 service:
   type: ClusterIP
   port: 8087
   targetPort: 8087
+# serviceAccount: Pod Kubernetes identity and token-mount behavior.
 serviceAccount:
   name: shippingservice-sa
   automountServiceAccountToken: false
+# database: JDBC endpoint and Kubernetes Secret name for DB credentials.
 database:
   url: "jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/shipping_db"
   kubernetesSecretName: boutique-rds-credentials
+# config: non-secret runtime env values such as DNS URLs, topics and feature flags.
 config:
   serverPort: "8087"
   corsAllowedOrigins: "https://needystuff.in,http://localhost:4173,http://localhost:5173"
@@ -24,6 +43,7 @@ config:
   kafkaShippingEventsTopic: "boutique.shipping.events"
   rabbitmqHost: "rabbitmq"
   rabbitmqPort: "5672"
+# revisionHistoryLimit: number of old ReplicaSets Kubernetes retains for rollback.
 revisionHistoryLimit: 5
 progressDeadlineSeconds: 600
 terminationGracePeriodSeconds: 30
@@ -31,6 +51,7 @@ strategy:
   type: RollingUpdate
   maxUnavailable: 0
   maxSurge: 1
+# resources: CPU/memory requests for scheduling and limits for containment.
 resources:
   requests:
     cpu: 100m
@@ -57,28 +78,34 @@ probes:
     failureThreshold: 3
 lifecycle:
   preStopSleepSeconds: 10
+# podSecurityContext: pod-level non-root UID/GID/filesystem identity.
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 10001
   runAsGroup: 10001
   fsGroup: 10001
+# containerSecurityContext: container privilege/capability/filesystem restrictions.
 containerSecurityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: false
   runAsNonRoot: true
   runAsUser: 10001
+# topologySpread: distributes replicas across nodes/failure domains.
 topologySpread:
   maxSkew: 1
   topologyKey: kubernetes.io/hostname
   whenUnsatisfiable: ScheduleAnyway
+# autoscaling: HPA minimum/maximum replicas and utilization target.
 autoscaling:
   minReplicas: 2
   maxReplicas: 5
   cpuAverageUtilization: 70
   scaleDownStabilizationSeconds: 300
+# pdb: minimum availability allowed during voluntary disruptions.
 pdb:
   minAvailable: 1
 
+# awsSecrets: Secrets Store CSI / AWS Secrets Manager integration settings.
 awsSecrets:
   enabled: true
   secretProviderClassName: boutique-rds-secrets

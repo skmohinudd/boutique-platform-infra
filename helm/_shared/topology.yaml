@@ -1,0 +1,90 @@
+# BOUTIQUE-DOCS-BEGIN
+# Boutique Helm-managed Kubernetes resource. Change desired state in Git/Helm,
+# then reconcile with Helm; avoid competing manual kubectl apply ownership.
+# BOUTIQUE-DOCS-END
+
+# ==============================================================================
+# Boutique canonical runtime topology
+# ==============================================================================
+# This file documents the intended Kubernetes DNS communication between
+# microservices and shared platform dependencies. The self-heal script uses it
+# as the canonical topology reference when auditing Helm values/configmaps.
+#
+# Kubernetes services communicate by DNS inside namespace "boutique":
+#   <service-name>:<service-port>
+# Shared dependencies are owned by the platform-dependencies Helm chart.
+# ==============================================================================
+
+namespace: boutique
+
+sharedDependencies:
+  kafka:
+    host: kafka
+    port: 9092
+    bootstrapServers: "kafka:9092"
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+  redis:
+    host: redis
+    port: 6379
+  mailpit:
+    host: mailpit
+    port: 1025
+
+services:
+  productcatalogservice:
+    type: web
+    port: 8080
+    url: "http://productcatalogservice:8080"
+    dependencies: [postgresql]
+  inventoryservice:
+    type: web
+    port: 8081
+    url: "http://inventoryservice:8081"
+    dependencies: [postgresql, productcatalogservice]
+  userservice:
+    type: web
+    port: 8082
+    url: "http://userservice:8082"
+    dependencies: [postgresql]
+  cartservice:
+    type: web
+    port: 8083
+    url: "http://cartservice:8083"
+    dependencies: [redis, userservice, productcatalogservice, inventoryservice]
+  orderservice:
+    type: web
+    port: 8084
+    url: "http://orderservice:8084"
+    dependencies: [postgresql, kafka, rabbitmq]
+  paymentservice:
+    type: web
+    port: 8085
+    url: "http://paymentservice:8085"
+    dependencies: [postgresql, kafka, rabbitmq]
+  checkoutservice:
+    type: web
+    port: 8086
+    url: "http://checkoutservice:8086"
+    dependencies: [cartservice, orderservice, paymentservice, inventoryservice]
+  shippingservice:
+    type: web
+    port: 8087
+    url: "http://shippingservice:8087"
+    dependencies: [postgresql, kafka, rabbitmq]
+  notificationservice:
+    type: worker
+    # Spring sets web-application-type=none, so no Kubernetes Service is needed.
+    dependencies: [kafka, rabbitmq, redis, mailpit, userservice]
+  recommendationservice:
+    type: web
+    port: 8088
+    url: "http://recommendationservice:8088"
+    dependencies: [productcatalogservice]
+
+messaging:
+  topics:
+    orderEvents: "boutique.order.events"
+    paymentEvents: "boutique.payment.events"
+    shippingEvents: "boutique.shipping.events"

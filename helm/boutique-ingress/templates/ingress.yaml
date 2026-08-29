@@ -1,3 +1,8 @@
+# BOUTIQUE-DOCS-BEGIN
+# Ingress: centralized external HTTP/HTTPS routing to internal Kubernetes Services.
+# A single shared ingress is intentional; each microservice does not need its own ALB.
+# BOUTIQUE-DOCS-END
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

@@ -1,3 +1,8 @@
+# BOUTIQUE-DOCS-BEGIN
+# HPA: automatically changes replica count according to CPU/resource utilization.
+# Deployment replicas are therefore not the long-term scaling authority when HPA is on.
+# BOUTIQUE-DOCS-END
+
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:

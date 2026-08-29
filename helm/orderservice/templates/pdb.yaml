@@ -1,3 +1,8 @@
+# BOUTIQUE-DOCS-BEGIN
+# PodDisruptionBudget: limits simultaneous voluntary Pod disruptions during
+# node drain/maintenance so the service keeps enough replicas available.
+# BOUTIQUE-DOCS-END
+
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:

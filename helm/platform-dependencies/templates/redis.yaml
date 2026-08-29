@@ -1,3 +1,9 @@
+# BOUTIQUE-DOCS-BEGIN
+# Shared platform dependency: redis.
+# Owned once by platform-dependencies and consumed by multiple microservices
+# through stable Kubernetes DNS. Do not duplicate this dependency per service.
+# BOUTIQUE-DOCS-END
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

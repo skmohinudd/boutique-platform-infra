@@ -1,3 +1,9 @@
+# BOUTIQUE-DOCS-BEGIN
+# Shared platform dependency: rabbitmq.
+# Owned once by platform-dependencies and consumed by multiple microservices
+# through stable Kubernetes DNS. Do not duplicate this dependency per service.
+# BOUTIQUE-DOCS-END
+
 apiVersion: v1
 kind: Secret
 metadata:
