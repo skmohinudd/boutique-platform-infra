@@ -37,6 +37,7 @@ database:
 config:
   serverPort: "8082"
   corsAllowedOrigins: "https://needystuff.in,http://localhost:4173,http://localhost:5173"
+  cognitoIssuerUri: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_L1JgwXP8B"
   dbPoolMax: "16"
   dbPoolMinIdle: "2"
   dbPoolConnectionTimeoutMs: "2000"

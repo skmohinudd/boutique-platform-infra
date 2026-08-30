@@ -19,3 +19,4 @@ data:
   DB_POOL_MAX_LIFETIME_MS: "{{ .Values.config.dbPoolMaxLifetimeMs }}"
   OPENAPI_ENABLED: "{{ .Values.config.openapiEnabled }}"
   SWAGGER_ENABLED: "{{ .Values.config.swaggerEnabled }}"
+  COGNITO_ISSUER_URI: "{{ .Values.config.cognitoIssuerUri }}"

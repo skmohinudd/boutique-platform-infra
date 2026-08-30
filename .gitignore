@@ -178,3 +178,8 @@ crash.*.log
 helm/**/*.tgz
 **/.env
 !*.tfvars.example
+id_rsa
+id_ed25519
+*credentials*
+*secret*.txt
+.automation-logs/
