@@ -59,6 +59,8 @@ spec:
             - configMapRef:
                 name: {{ .Values.configMapName }}
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.spring.profile | quote }}
             # Service-specific PostgreSQL JDBC URL from Helm values.
             - name: DB_URL
               value: {{ .Values.database.url | quote }}

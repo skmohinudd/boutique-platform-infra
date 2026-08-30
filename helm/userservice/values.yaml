@@ -29,6 +29,9 @@ service:
 serviceAccount:
   name: userservice-sa
   automountServiceAccountToken: false
+
+spring:
+  profile: aws
 # database: JDBC endpoint and Kubernetes Secret name for DB credentials.
 database:
   url: "jdbc:postgresql://boutique-dev-postgres.ce7qiak863r3.us-east-1.rds.amazonaws.com:5432/user_db"
