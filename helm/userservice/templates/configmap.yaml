@@ -20,3 +20,4 @@ data:
   OPENAPI_ENABLED: "{{ .Values.config.openapiEnabled }}"
   SWAGGER_ENABLED: "{{ .Values.config.swaggerEnabled }}"
   COGNITO_ISSUER_URI: "{{ .Values.config.cognitoIssuerUri }}"
+  COGNITO_USERINFO_URI: "{{ .Values.config.cognitoUserInfoUri }}"
